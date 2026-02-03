@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+
+public class RobotSafetyException: Exception
+{
+    public RobotSafetyException(string str): base(str) {}
+}
+
+public class RobotHazardAuditor
+{
+
+    public static void Main(string[] args)
+    {
+        RobotHazardAuditor obj=new RobotHazardAuditor();
+
+        Console.WriteLine("Enter Arm Precision (0.0 - 1.0):");
+        decimal armPrecision=decimal.Parse(Console.ReadLine());
+
+        Console.WriteLine("Enter Worker Density(1-20):");
+        int workerDensity=int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Enter Machinery State (Worn/Faulty/Critical):");
+        string machineryState=Console.ReadLine();
+
+        
+        try
+        {
+            Console.WriteLine(obj.CalculateHazardRisk(armPrecision,workerDensity,machineryState));
+        }
+
+        catch(RobotSafetyException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+
+    public decimal CalculateHazardRisk(decimal armPrecision, int workerDensity, string machineryState)
+    {
+        if(armPrecision<0.0m || armPrecision>1.0m)
+        {
+            throw new RobotSafetyException("Error:  Arm precision must be 0.0-1.0");
+        }
+
+        if(workerDensity<1 || workerDensity>20)
+        {
+            throw new RobotSafetyException("Error: Worker density must be 1-20");
+        }
+
+        if(machineryState!="Worn" && machineryState!="Faulty" && machineryState!="Critical")
+        {
+            throw new RobotSafetyException("Error: Unsupported machinery state.");
+        }
+
+        Dictionary<string,decimal> dict=new Dictionary<string, decimal>()
+        {
+           {"Worn",1.3m},
+            {"Faulty",2},
+            {"Critical",3}
+        };
+
+        decimal Hazard;
+        Hazard = ((1.0m-armPrecision)*15.0m) + (workerDensity* dict[machineryState]);
+        return Hazard;
+    }
+}
