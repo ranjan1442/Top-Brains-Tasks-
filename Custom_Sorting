@@ -1,0 +1,48 @@
+using System;
+using System.Linq;
+using System.Collections;
+class Student:IComparable
+{
+    public string Name{get; set;}
+    public int Age{get; set;}
+    public double Marks{get; set;}
+}
+
+class CustomSorting
+{
+public static void Main4(string[] args)
+{
+  List<Student> list=new List<Student>();
+  List<Student> list1= new List<Student>();
+
+  Console.WriteLine("Enter number of students");
+  int n=int.Parse(Console.ReadLine());
+
+  for(int i=0; i<n; i++)
+  {
+    Console.WriteLine($"Enter name at index {i}");
+    string name=Console.ReadLine();
+
+    Console.WriteLine($"Enter Age at index {i}");
+    int age=int.Parse(Console.ReadLine());
+
+    Console.WriteLine($"Enter marks at index {i}");
+    double marks=double.Parse(Console.ReadLine());
+
+    Student s=new Student(){Name=name, Age=age, Marks=marks};
+    list.Add(s);
+  }
+
+  var result=list.OrderByDescending(x=> x.Marks).ThenBy(x=>x.Age);
+
+  foreach(Student i in result)
+  {
+    list1.Add(i);
+  }
+
+  foreach(Student i in list1)
+  {
+   Console.WriteLine($"Name:{i.Name}, Age:{i.Age}, Marks:{i.Marks}");
+  }
+}
+}
