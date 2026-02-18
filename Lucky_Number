@@ -1,0 +1,44 @@
+using System;
+class LuckyNumber
+{
+
+   public static void Main2(string[] args)
+   {
+
+    LuckyNumber obj=new LuckyNumber();
+    Console.WriteLine("Enter first number");
+    int num1=int.Parse(Console.ReadLine());
+
+    Console.WriteLine("Enter second number");
+    int num2=int.Parse(Console.ReadLine());
+    
+    int count=0;
+
+    for(int i=num1; i<=num2; i++)
+    {
+         if(Math.Pow(obj.Add(i),2) == obj.Add(obj.Product(i)))
+           count++;
+    }
+
+    Console.WriteLine($"number of luck numbers between {num1} and {num2} are {count}");
+   }
+
+
+    private int Add(int n)
+    {
+        int sum=0;
+        while(n!=0)
+        {
+            int last=n%10;
+            sum+=last;
+            n=n/10;
+        }
+        return sum;
+    }
+
+
+    private int Product(int n)
+    {
+        return n*n;
+    }
+}
