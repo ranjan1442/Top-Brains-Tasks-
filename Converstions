@@ -1,0 +1,60 @@
+using System;
+public class Program10
+{
+    public static void Main(string[] args)
+    {
+        int id=105;
+        string str=id.ToString();
+        Console.WriteLine($"Id in string is {str}");
+
+        Console.WriteLine($"Id in integer is {int.Parse(str)+5}");
+        
+        string st="110.05";
+        Console.WriteLine($"string to decimal {decimal.Parse(st)+5.9m}");
+
+        Console.WriteLine($"int to double: {Convert.ToDouble(id)}");
+
+        float fl=93.45f;
+        Console.WriteLine($"flaot to double: {Convert.ToDouble(fl)+7}");
+
+        Console.WriteLine($"flaot to int: {Convert.ToInt32(fl)+7}");
+
+        double temp=35.34232;
+        Console.WriteLine($"double to float: {(float)temp+7}");
+
+        decimal de=1234.2534232m;
+        Console.WriteLine($"decimal to string {de.ToString("F2")}");
+
+        while(true)
+        {
+            char c=Char.Parse(Console.ReadLine());
+            if(string.Equals(c.ToString(),"x", StringComparison.OrdinalIgnoreCase)) break;
+            Console.WriteLine($"ASCII value of the character {c} is {(int)c}");
+        }
+
+        bool check=true;
+        Console.WriteLine($"bool to string {check.ToString()}");
+
+        Console.WriteLine("Enter the string with different data types");
+        string sb=Console.ReadLine();
+        string[] arr=sb.Split(',');
+        List<float> f_list=new List<float>();
+        for(int i=0; i<arr.Length; i++)
+        {
+            if(float.TryParse(arr[i], out float j))
+            {
+                if(float.IsNaN(j)) continue;
+             float k=Convert.ToSingle(Math.Round(j,2));
+                f_list.Add(k);
+            }
+        }
+
+        float[] f_arr=f_list.ToArray();
+
+        for(int i=0; i<f_arr.Length; i++)
+        {
+            Console.Write($"{f_arr[i]}, ");
+        }
+
+    }
+}
