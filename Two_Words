@@ -1,0 +1,100 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
+class TwoWords
+{
+    public static void Main(String[] args)
+    {   
+        Console.WriteLine("Enter First string");
+        string str1=Console.ReadLine();
+
+        Console.WriteLine("Enter Second string");
+        string str2=Console.ReadLine();
+
+        StringBuilder s1=new StringBuilder(str1);
+        StringBuilder s2=new StringBuilder(str2);
+
+        List<char> arr=new List<char>{'a','e','i','o','u','A','E','I','O','U'};
+        for(int i=s1.Length-1; i>=0; i--)
+        {
+            if(!arr.Contains(s1[i]))
+            {
+                for(int j=0; j<s2.Length; j++)
+                {
+                    if(string.Equals(s1[i].ToString(), s2[j].ToString(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        s1.Replace(s1[i].ToString(),"");
+                        break;
+                    }
+                }
+            }
+            if(i>s1.Length) i=s1.Length;
+        }
+
+
+        for(int i=s1.Length-1; i>0; i--)
+        {
+            if(s1[i]==s1[i-1])
+            {
+                s1.Remove(i-1,1);
+            }
+
+        }
+
+    Console.WriteLine($"First string after changes is : {s1}");
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+using System;
+using System.Text;
+using System.Collections.Generic;
+
+class TwoWords
+{
+    public static void Main1()
+    {
+        string str1 = Console.ReadLine();
+        string str2 = Console.ReadLine();
+
+        StringBuilder s1 = new StringBuilder(str1);
+
+        HashSet<char> vowels = new HashSet<char>{ 'a','e','i','o','u' };
+        HashSet<char> s2Set = new HashSet<char>();
+
+        foreach (char c in str2)
+            s2Set.Add(char.ToLower(c));
+
+        // Task 1
+        for (int i = s1.Length - 1; i >= 0; i--)
+        {
+            char ch = char.ToLower(s1[i]);
+
+            if (!vowels.Contains(ch) && s2Set.Contains(ch))
+            {
+                s1.Remove(i, 1);
+            }
+        }
+
+        // Task 2
+        for (int i = s1.Length - 1; i > 0; i--)
+        {
+            if (char.ToLower(s1[i]) == char.ToLower(s1[i - 1]))
+            {
+                s1.Remove(i, 1);
+            }
+        }
+
+        Console.WriteLine(s1.ToString());
+    }
+}
